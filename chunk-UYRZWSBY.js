@@ -1,0 +1,1 @@
+import{j as o,m as r,ma as i}from"./chunk-6WTTME43.js";var e=class t{constructor(c){this.http=c}getProducts(){return this.http.get("https://dummyjson.com/products")}static \u0275fac=function(n){return new(n||t)(r(i))};static \u0275prov=o({token:t,factory:t.\u0275fac,providedIn:"root"})};export{e as a};

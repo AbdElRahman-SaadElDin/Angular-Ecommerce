@@ -1,0 +1,1 @@
+import{B as t}from"./chunk-6WTTME43.js";var m=class i{transform(e,r){return!r||r<=0?e:+(e*(1-r/100)).toFixed(2)}static \u0275fac=function(r){return new(r||i)};static \u0275pipe=t({name:"discountedPrice",type:i,pure:!0})};export{m as a};
