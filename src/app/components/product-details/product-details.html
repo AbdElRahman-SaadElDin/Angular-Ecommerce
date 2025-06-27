@@ -1,0 +1,68 @@
+@if (product) {
+<section class="product-details">
+  <div class="product-details__gallery">
+    <img class="main-img" [src]="product.thumbnail" [alt]="product.title" />
+    <ng-template #noImg>
+      <div class="main-img no-img"></div>
+    </ng-template>
+    <div class="thumbs">
+      @if (product.images.length) { @for (img of product.images; track img) {
+      <img [src]="img" [alt]="product.title" />
+      } }
+    </div>
+  </div>
+  <div class="product-details__info">
+    <h1>{{ product.title }}</h1>
+    <p class="desc">{{ product.description }}</p>
+    <div class="rating">
+      <span class="stars">{{ stars }}</span>
+      <span class="reviews">({{ product.rating }})</span>
+    </div>
+    <div class="price">
+      <span class="main-price">${{ product.price }}</span>
+      @if (product.discountPercentage) {
+      <span class="discount-price">
+        ${{ product.price | discountedPrice:product.discountPercentage }} </span
+      >}
+    </div>
+    <p class="brand">{{product.brand}}</p>
+    <div
+      class="stock in-stock"
+      [ngClass]="{
+        'stock-green': product.availabilityStatus === 'In Stock',
+        'stock-red': product.availabilityStatus === 'Out Of Stock',
+        'stock-orange': product.availabilityStatus === 'Low Stock'
+      }"
+    >
+      {{product.availabilityStatus}}
+    </div>
+
+    <div class="more-info">
+      @for (tag of product.tags; track tag) {
+      <button class="info-btn">{{tag}}</button>}
+    </div>
+    <div class="quantity-row">
+      <button class="qty-btn" (click)="decreaseQty()">-</button>
+      <span class="qty">{{ getQty() }}</span>
+      <button class="qty-btn" (click)="increaseQty()">+</button>
+      <span class="items-left"
+        >Only
+        <span class="items">{{product.stock}} Items</span> Left!<br /><span
+          class="warn"
+          >Don't miss it</span
+        ></span
+      >
+    </div>
+    <div class="actions">
+      <button class="buy-now">Buy Now</button>
+      <button class="add-cart" (click)="toggleCart()">
+        {{ isInCart() ? 'Remove from Cart' : 'Add to Cart' }}
+      </button>
+    </div>
+  </div>
+</section>
+} @else {
+<section>
+  <p>Loading...</p>
+</section>
+}

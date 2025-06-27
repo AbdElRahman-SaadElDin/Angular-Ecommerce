@@ -1,0 +1,168 @@
+<section>
+  <div class="register-container">
+    <h2>Register</h2>
+    <p>Please fill in this form to create an account.</p>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" name="name" type="text" formControlName="name" />
+        @if (submitted || registerForm.get('name')?.dirty){
+        @if(registerForm.get('name')?.getError('pattern')) {
+        <small class="error-message">Name can only contain letters.</small>
+        } @if(registerForm.get('name')?.getError('required')){
+        <small class="error-message">Name is required.</small>
+        } @if(registerForm.get('name')?.getError('minlength')){
+        <small class="error-message">Name must be at least 3 characters</small>
+        } }
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" formControlName="email" />
+        @if ((submitted || registerForm.get('email')?.dirty) ) {
+        @if(registerForm.get('email')?.getError('required')) {
+        <small class="error-message">Email is required</small>
+        } @if(registerForm.get('email')?.getError('pattern')) {
+        <small class="error-message">Email address is invalid</small>
+        } }
+      </div>
+
+      <div class="form-group">
+        <label for="username">User Name</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          formControlName="username"
+        />
+        @if ((submitted || registerForm.get('username')?.dirty)) { @if
+        (registerForm.get('username')?.getError('required')) {
+        <small class="error-message">Username is required</small>} @if
+        (registerForm.get('username')?.getError('pattern')) {
+        <small class="error-message">Username must not contain spaces</small>
+        }}
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          formControlName="password"
+        />
+        @if (submitted || registerForm.get('password')?.dirty) {
+        @if(registerForm.get('password')?.getError('required')) {
+        <small class="error-message">Password is required</small>
+        } @if (registerForm.get('password')?.getError('pattern')) {
+        <small class="error-message"
+          >Password must be at least 8 characters,
+          <br />
+          include an uppercase letter, a number, and a special
+          character(*&#64;%$#).</small
+        >
+        } }
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          formControlName="confirmPassword"
+        />
+        @if (submitted || registerForm.get('confirmPassword')?.dirty) {
+        @if(registerForm.get('confirmPassword')?.getError('required')) {
+        <small class="error-message">Confirm Password is required</small>
+        } @else if ( registerForm.get('confirmPassword')?.value &&
+        registerForm.get('confirmPassword')?.getError('passwordMismatch') ) {
+        <small class="error-message">Passwords do not match</small>
+        } }
+      </div>
+
+      <!-- Form Array, Use the dynamic forms to added multiple addresses -->
+      <!-- Cant edit in added Address group -->
+      <div class="form-group">
+        <label>Address</label>
+        <div formArrayName="addresses">
+          @for (address of addresses.controls; track address; let i = $index) {
+          <div
+            [formGroupName]="i"
+            style="
+              display: flex;
+              gap: 8px;
+              align-items: flex-start;
+              margin-bottom: 8px;
+            "
+          >
+            <input
+              type="text"
+              formControlName="address"
+              placeholder="Address"
+              [readonly]="i !== addresses.length - 1"
+            />
+            <input
+              type="text"
+              formControlName="street"
+              placeholder="Street"
+              [readonly]="i !== addresses.length - 1"
+            />
+            <input
+              type="text"
+              formControlName="city"
+              placeholder="City"
+              [readonly]="i !== addresses.length - 1"
+            />
+            <input
+              type="text"
+              formControlName="country"
+              placeholder="Country"
+              [readonly]="i !== addresses.length - 1"
+            />
+            <button
+              type="button"
+              (click)="removeAddress(i)"
+              [disabled]="addresses.length === 1"
+              class="delete-btn"
+            >
+              Delete
+            </button>
+          </div>
+          }
+        </div>
+        <!-- Disabled add address button if the address group not valid-->
+        <button
+          type="button"
+          (click)="addAddress()"
+          [disabled]="addresses.length > 0 && !addresses.at(addresses.length - 1).valid"
+          class="address-btn"
+        >
+          Add address
+        </button>
+        <!-- Error messages for address fields -->
+        @for (address of addresses.controls; track address; let i = $index) {
+        @if(address.get('address')?.dirty &&
+        address.get('address')?.getError('required')) {
+        <small class="error-message">Address is required</small>
+        } @if (address.get('street')?.dirty &&
+        address.get('street')?.getError('required')) {
+        <small class="error-message">Street is required</small>
+        } @if (address.get('city')?.dirty &&
+        address.get('city')?.getError('required')) {
+        <small class="error-message">City is required</small>
+        } @if (address.get('country')?.dirty &&
+        address.get('country')?.getError('required')) {
+        <small class="error-message">Country is required</small>
+        } }
+      </div>
+
+      <button class="register-btn" [disabled]="!registerForm.valid">
+        Register
+      </button>
+    </form>
+  </div>
+  <div class="login-link">
+    <span>Already have account! <a routerLink="/login">login</a></span>
+  </div>
+</section>

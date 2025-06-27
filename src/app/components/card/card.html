@@ -1,0 +1,28 @@
+<article>
+  <p
+    [ngClass]="{
+        'stock-green': product()?.availabilityStatus === 'In Stock',
+        'stock-red': product()?.availabilityStatus === 'Out Of Stock',
+        'stock-orange': product()?.availabilityStatus === 'Low Stock'
+      }"
+  >
+    {{product()?.availabilityStatus}}
+  </p>
+  <figure (click)="goToDetails(product()!.id)" style="cursor: pointer">
+    <img [src]="product()?.thumbnail" [alt]="product()!.title" />
+  </figure>
+  <h3>{{product()!.title}}</h3>
+  <p>{{product()!.description}}</p>
+  <div class="price">
+    <p class="main-price">{{product()!.price}}$</p>
+    @if (product()?.discountPercentage) {
+    <span class="discount-price">
+      ${{ product()!.price | discountedPrice:product()?.discountPercentage }}
+    </span>
+    }
+  </div>
+  <div class="stars">{{stars}}</div>
+  <button (click)="addCart()" style="cursor: pointer">
+    {{ isInCart() ? 'Remove from Cart' : 'Add to Cart' }}
+  </button>
+</article>

@@ -1,0 +1,129 @@
+article {
+  width: 100%;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  text-align: left;
+  padding: 1.5rem 1.5rem 1.25rem 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+  transition: box-shadow 0.2s;
+  position: relative;
+  min-height: 420px;
+  max-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  p[ngclass],
+  .stock-green,
+  .stock-red,
+  .stock-orange {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    min-width: 90px;
+    text-align: center;
+    z-index: 2;
+  }
+
+  .price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+
+    .main-price {
+      font-size: 1.1rem;
+      color: #888;
+      text-decoration: line-through;
+      margin-right: 0.5rem;
+    }
+
+    .discount-price {
+      font-size: 1.25rem;
+      color: #222;
+      font-weight: 700;
+      margin-left: 0.25rem;
+    }
+  }
+
+  .stars {
+    color: #2ecc40;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  button {
+    width: 100%;
+    background: #1a4d2e;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75em 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    cursor: pointer;
+    transition: background 0.2s;
+
+    &:hover {
+      background: #145c2e;
+    }
+  }
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-clamp: 3;
+    box-orient: vertical;
+  }
+}
+
+figure {
+  margin: 0 0 0.5rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f7f7f7;
+  border-radius: 12px;
+  height: 180px;
+  overflow: hidden;
+
+  img {
+    max-width: 100%;
+    max-height: 160px;
+    object-fit: contain;
+  }
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.25rem 0;
+  color: #222;
+}
+
+.stock-green {
+  background: #2ecc40;
+  color: #fff;
+  padding: 0.25em 0.75em;
+  border-radius: 6px;
+}
+.stock-red {
+  background: #e74c3c;
+  color: #fff;
+  padding: 0.25em 0.75em;
+  border-radius: 6px;
+}
+.stock-orange {
+  background: #ff9800;
+  color: #fff;
+  padding: 0.25em 0.75em;
+  border-radius: 6px;
+}

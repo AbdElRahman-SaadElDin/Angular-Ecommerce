@@ -1,0 +1,98 @@
+ ** CartService
+  addToCart(product: any) {
+    const items = this.cartItems();
+    const index = items.findIndex((item) => item.id === product.id);
+    if (index === -1) {
+      // Not in cart, add it
+      this.cartItems.set([...items, product]);
+    } else {
+      // Already in cart, remove it
+      const newItems = items.slice(0, index).concat(items.slice(index + 1));
+      this.cartItems.set(newItems);
+    }
+  }
+
+
+ ** ProductDetails
+  import { Component, input, OnInit } from '@angular/core';
+  import { HttpProducts } from '../../services/http-products';
+  import { ActivatedRoute } from '@angular/router';
+  import { ProductItem } from '../../template/product-item';
+  import { CartService } from '../../services/cart-service';
+  import { CartItem } from '../../template/cart-item';
+
+  @Component({
+    selector: 'app-product-details',
+    imports: [],
+    templateUrl: './product-details.html',
+    styleUrl: './product-details.scss',
+  })
+  export class ProductDetails implements OnInit {
+    product: ProductItem | null = null;
+    readonly id = input<number>();
+
+    constructor(
+      private http: HttpProducts,
+      public cartService: CartService
+    ) {}
+
+    ngOnInit() {
+      if (this.id()) {
+        this.http.getProducts().subscribe((data: any) => {
+          this.product = data.products.find(
+            (p: ProductItem) => p.id === this.id()
+          );
+          if (!this.product) {
+            console.error('Product not found for id:', this.id());
+          }
+        });
+      } else {
+        console.error('No id param found in route');
+      }
+    }
+
+    get stars() {
+      return '★★★★★'.slice(0, Math.round(this.product?.rating || 0));
+    }
+
+    isInCart(): boolean {
+      return (
+        !!this.product &&
+        this.cartService
+          .cartItems()
+          .some((item: CartItem) => item.id === this.product!.id)
+      );
+    }
+
+    toggleCart() {
+      if (this.product) {
+        this.cartService.addToCart(this.product);
+      }
+    }
+
+    increaseQty() {
+      if (this.product) {
+        if (!this.isInCart()) {
+          this.cartService.addToCart(this.product);
+        } else {
+          this.cartService.increaseQuantity(this.product.id);
+        }
+      }
+    }
+
+    decreaseQty() {
+      if (this.product && this.isInCart()) {
+        this.cartService.decreaseQuantity(this.product.id);
+      }
+    }
+
+    getQty(): number {
+      if (this.product) {
+        const item = this.cartService
+          .cartItems()
+          .find((i) => i.id === this.product!.id);
+        return item ? item.quantity : 0;
+      }
+      return 0;
+    }
+  }

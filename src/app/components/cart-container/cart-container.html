@@ -1,0 +1,57 @@
+<section class="cart-container">
+  <h1>Cart</h1>
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Description</th>
+        <th>Quantity</th>
+        <th>Remove</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of cartService.cartItems(); track item.id) {
+      <tr>
+        <td (click)="goToDetails(item.id)" style="cursor: pointer">
+          <img [src]="item.thumbnail" [alt]="item.title" class="cart-img" />
+        </td>
+        <td>
+          <strong>{{ item.title }}</strong><br />
+          <span class="product-code"
+            >Product Code: {{ item.sku || item.id }}</span
+          >
+        </td>
+        <td class="quantity-cell">
+          <button
+            class="qty-btn plus"
+            (click)=" cartService.increaseQuantity(item.id)"
+          >
+            +
+          </button>
+          <span class="qty">{{ item.quantity }}</span>
+          <button
+            class="qty-btn minus"
+            (click)=" cartService.decreaseQuantity(item.id)"
+          >
+            -
+          </button>
+        </td>
+        <td>
+          <button
+            class="remove-btn"
+            (click)="cartService.removeFromCart(item.id)"
+          >
+            ×
+          </button>
+        </td>
+        <td class="price">£{{ (item.price | discountedPrice:item.discountPercentage) * item.quantity }}</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+  <div class="cart-total">
+    <span>Total</span>
+    <span class="total-price">£{{ total() }}</span>
+  </div>
+</section>

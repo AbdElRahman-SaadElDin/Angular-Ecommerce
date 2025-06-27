@@ -1,0 +1,17 @@
+<nav>
+  <a routerLink="/">
+    <h2>Products</h2>
+  </a>
+  <div class="nav-right">
+    <a routerLink="/register" class="cart">
+      <h3>Register</h3>
+    </a>
+    <a routerLink="/login" class="cart">
+      <h3>Login</h3>
+    </a>
+    <a routerLink="/cart" class="cart">
+      <i class="fa-solid fa-cart-shopping"></i>
+      <p>{{ cartService.cartCount() }}</p>
+    </a>
+  </div>
+</nav>

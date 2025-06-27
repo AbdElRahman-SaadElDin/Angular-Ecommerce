@@ -1,0 +1,114 @@
+.cart-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.cart-container h1 {
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+.cart-table th,
+.cart-table td {
+  text-align: left;
+  padding: 1rem 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.cart-table th {
+  color: #888;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.cart-img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #f5f5f5;
+}
+
+.product-code {
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+.qty-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: #e5e5e5;
+  color: #222;
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin: 0 6px;
+  transition: background 0.2s;
+}
+
+.qty-btn.plus {
+  background: #0a3d2c;
+  color: #fff;
+}
+
+.qty-btn:active {
+  background: #ccc;
+}
+
+.qty {
+  display: inline-block;
+  min-width: 24px;
+  text-align: center;
+  font-size: 1.1rem;
+}
+
+.remove-btn {
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  color: #888;
+  font-size: 1.3rem;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.remove-btn:hover {
+  background: #f8d7da;
+  color: #c00;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 2rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid #eee;
+}
+
+.total-price {
+  font-size: 1.4rem;
+  color: #0a3d2c;
+}
